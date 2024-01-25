@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Letter Header" pageWidth="595" pageHeight="842" whenNoDataType="NoPages" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="9b269651-920c-4100-aa2b-93d5f77c6c0a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="142"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Armscor Prod 247"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.report.description" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<subDataset name="Dataset1" uuid="8ab4ca2d-50a4-47cc-9c8a-bd15ec2eea00">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+	</subDataset>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="RESOURCE_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[Select 'x'  as dummy ]]>
+	</queryString>
+	<field name="dummy" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dummy"/>
+		<property name="com.jaspersoft.studio.field.label" value="dummy"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="233" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement x="308" y="7" width="140" height="10" uuid="a65e7229-7156-4e4a-817d-ad8a38ff4683">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Private Bag X337]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="308" y="17" width="140" height="10" uuid="fafdd910-cbcf-4d80-91c6-370d7f3524eb">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[PRETORIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="308" y="27" width="140" height="10" uuid="aacddf98-99c4-495b-8f6f-d329230bf7cd">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[0001]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="308" y="37" width="140" height="10" uuid="e92107b0-8af9-45a5-92b5-ad8c86e2e2e2">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[South Africa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="308" y="47" width="140" height="10" uuid="1e42ba8d-f12f-4772-84fd-977952b31bcb">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Web: www.armscor.co.za]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="448" y="8" width="132" height="10" uuid="7c5e1695-f25f-41f0-bd44-844f866ebc81">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[370 Nossob Street]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="448" y="18" width="132" height="10" uuid="24fbfc19-8ea1-462a-a458-fdf58d27dfc6">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Erasmuskkloof X4]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="448" y="28" width="132" height="10" uuid="2ddfd5b9-479f-4977-b1c6-054df36f818c">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Pretoria, South Africa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="448" y="38" width="132" height="10" uuid="532d1284-68bc-43aa-bd54-af11e23ab1dd">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Tel:  +27 12 428 1911]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="448" y="48" width="132" height="10" uuid="68971e62-170a-4b5c-88ed-af6ef59e3a95">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Fax:  +27 12 428 5635]]></text>
+			</staticText>
+			<image>
+				<reportElement x="8" y="4" width="252" height="50" uuid="3f3caf20-909d-49d7-ae34-84e5b5adb97b"/>
+				<imageExpression><![CDATA["src/armscor.jpg"]]></imageExpression>
+			</image>
+			<line>
+				<reportElement x="8" y="95" width="572" height="1" uuid="13d27240-c7ef-4b2c-8ee8-e3a05bbdfaba"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="58" width="595" height="32" uuid="c746a7d4-55b1-46fa-8c84-cc5e1da62c42"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Karumbi" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Gateway to Defense Solutions]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band splitType="Stretch"/>
+	</lastPageFooter>
+	<summary>
+		<band>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</summary>
+</jasperReport>

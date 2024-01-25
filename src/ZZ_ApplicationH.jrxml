@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ZZ_Application" pageWidth="595" pageHeight="842" whenNoDataType="NoPages" columnWidth="505" leftMargin="45" rightMargin="45" topMargin="20" bottomMargin="20" uuid="99ec093a-8073-477d-824b-4254ab2a503a">
+	<property name="ireport.zoom" value="1.2100000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="485"/>
+	<parameter name="ZZ_Application_ID" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARAGRAPH_ONE" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="RESOURCE_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT a.zz_lettertext, a.subject, lower( ast.name || ' ' ||dt.name) as docname, a.zz_paragraph1, lt.zz_reportfooter, a.zz_emailreference, a.zz_enquiresreference,org.name as orgname, a.zz_apprefno,  usr.description as DocOwner, a.zz_jobtitle
+
+
+
+from zz_application as a
+
+left join ad_user as usr on usr.ad_user_id = a.zz_DocOwner_ID
+left join c_doctype as dt on dt.c_doctype_id = a.c_doctype_id
+left join zz_applicationsubtype as ast on ast.zz_applicationsubtype_id = a.zz_applicationsubtype_id
+left join ad_org as org on a.ad_org_id=org.ad_org_id,
+zz_lettertemplates as lt
+where a.zz_lettertemplates_id = lt.zz_lettertemplates_id
+and a.zz_application_id = $P{ZZ_Application_ID}]]>
+	</queryString>
+	<field name="zz_lettertext" class="java.lang.String"/>
+	<field name="subject" class="java.lang.String"/>
+	<field name="docname" class="java.lang.String"/>
+	<field name="zz_paragraph1" class="java.lang.String"/>
+	<field name="zz_reportfooter" class="java.lang.String"/>
+	<field name="zz_emailreference" class="java.lang.String"/>
+	<field name="zz_enquiresreference" class="java.lang.String"/>
+	<field name="orgname" class="java.lang.String"/>
+	<field name="zz_apprefno" class="java.lang.String"/>
+	<field name="docowner" class="java.lang.String"/>
+	<field name="zz_jobtitle" class="java.lang.String"/>
+	<variable name="Country" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="332" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="132" width="132" height="101" uuid="c4dc73c2-6c29-4008-bf7c-aacdbd318d6d"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="DejaVu Sans" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[The Director
+Directorate Conventional Arms Control (DCAC)
+Private Bag X910
+PRETORIA
+0001]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="277" y="133" width="64" height="16" uuid="233d1201-0108-4399-af0b-72a48dcd15c0"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="277" y="150" width="64" height="16" uuid="310aa189-d3a8-4e98-96e3-8773ec1503fa"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Telephone]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="277" y="167" width="64" height="16" uuid="80593d07-0c43-491b-bcf8-b73f590938d2"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Fax]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="277" y="184" width="64" height="16" uuid="ec2c5a39-cf04-4fd2-b3ae-639caa902f9c"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[E-mail]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="277" y="240" width="64" height="16" uuid="80de027d-b17f-45b5-ad00-25a0aebcfef6"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Enquiries]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="351" y="133" width="154" height="16" uuid="0017d043-5a56-4166-9f49-99c24ebfb5f4"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="341" y="240" width="10" height="16" uuid="3dc64ebf-f63f-4f14-a298-18dbaa4702bf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" isBold="false"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="341" y="167" width="10" height="16" uuid="a0ad7b62-b032-46d9-81f2-cf21b88754a5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" isBold="false"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="341" y="150" width="10" height="16" uuid="b6b4cdef-d096-45c7-a877-bb9a6aeb5ad8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" isBold="false"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="341" y="184" width="10" height="16" uuid="3b62fb14-7d84-4945-adc8-d925f04b796e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" isBold="false"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="341" y="133" width="10" height="16" uuid="75ea7477-210b-4ed0-bf26-318f9ce92fba"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" isBold="false"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="351" y="150" width="154" height="16" uuid="391f15e4-6c8a-4942-89b2-7900eb839702"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["(012) 428 2054/2216/2374"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="351" y="167" width="154" height="16" uuid="7983f907-f2a2-4206-886a-85605bc001f8"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["(012) 428 2204"]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement x="351" y="184" width="154" height="40" uuid="5c55f963-3f0e-4afb-a139-8f1da761fd14"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="12" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{zz_emailreference}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement x="351" y="240" width="154" height="40" uuid="7f76d771-f77d-4cdc-9267-dee0016cc218"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{zz_enquiresreference}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="276" width="113" height="16" uuid="e0b7be09-0dfd-446f-be3c-88a4f05b05f8"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Dear Sir/Madam]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement x="1" y="304" width="503" height="17" isPrintWhenDetailOverflows="true" uuid="e6ef8b17-cd1b-47c7-a36e-8154981173cd"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{subject}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement x="1" y="242" width="176" height="16" uuid="1e5729e3-c08c-49b8-bb83-303e5600d72a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Our Ref:  " +$F{zz_apprefno}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="105" width="505" height="20" uuid="83edcf4e-17f6-4383-9dbe-11d8975d8220"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Company registration: 1968/008611/06 Vat registration: 4500101169]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="21" width="495" height="20" uuid="11c7fd44-1075-4287-bcaf-645c3a1fc31f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RESTRICTED]]></text>
+			</staticText>
+			<image isUsingCache="true" onErrorType="Icon">
+				<reportElement key="image-1" x="214" y="43" width="168" height="62" uuid="0e10e1a1-66af-453b-bc0a-53e6f0b9628d"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<imageExpression><![CDATA[$P{RESOURCE_DIR} + "/home/du/Downloads/armscor.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="34" splitType="Stretch">
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement x="1" y="0" width="504" height="17" isPrintWhenDetailOverflows="true" uuid="bfb88d62-1c18-4b18-8e29-c2b76678b5c3"/>
+				<textElement textAlignment="Justified">
+					<font fontName="DejaVu Sans" size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{zz_paragraph1}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="56">
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement x="2" y="0" width="504" height="22" uuid="6bd2fb8e-c0c5-4c27-ab74-6a909a7fbbcb"/>
+				<textElement textAlignment="Justified">
+					<font fontName="DejaVu Sans" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{zz_lettertext}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="128" splitType="Stretch">
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement x="1" y="63" width="504" height="57" isPrintWhenDetailOverflows="true" uuid="26e862d2-a71b-4d74-af25-858bc9ea35cd"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{zz_reportfooter}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="240" splitType="Stretch">
+			<staticText>
+				<reportElement x="2" y="26" width="503" height="20" uuid="43765d80-e87a-4020-a0ee-3c321aac4925"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA["Your kind consideration of this application shall highly appriciated "]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="2" y="68" width="112" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="43122954-773e-42d8-90d7-6a8eb7c6f6a8"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="DejaVu Sans" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Yours Sincerely]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="190" width="142" height="1" uuid="98e250e9-72ef-4ed5-9b34-ee446113f02d"/>
+			</line>
+			<textField>
+				<reportElement mode="Transparent" x="1" y="191" width="112" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="3b03db6c-38cd-4f26-a732-c6b4e5ea9fb2"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="DejaVu Sans" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{docowner}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

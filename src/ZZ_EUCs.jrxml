@@ -1,0 +1,954 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ZZ_EUC" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="NoPages" columnWidth="782" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="bd7f480d-f36b-4456-9119-ee964a5dd89d">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="54"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Armscor Prod 247"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="STATUS" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DATE_TO_DCAC1" class="java.sql.Timestamp">
+		<defaultValueExpression><![CDATA[new java.sql.Timestamp(((Date)(new java.text.SimpleDateFormat("ddMMyyyy").parse("01011900"))).getTime())]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DATE_TO_APM1" class="java.sql.Timestamp" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new java.sql.Timestamp(((Date)(new java.text.SimpleDateFormat("ddMMyyyy").parse("01011900"))).getTime())]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DATE_TO_DCAC2" class="java.sql.Timestamp">
+		<defaultValueExpression><![CDATA[new java.sql.Timestamp(((Date)(new java.text.SimpleDateFormat("ddMMyyyy").parse("01011900"))).getTime())]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DATE_TO_APM2" class="java.sql.Timestamp" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new java.sql.Timestamp(((Date)(new java.text.SimpleDateFormat("ddMMyyyy").parse("01011900"))).getTime())]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sortby" class="java.lang.String">
+		<defaultValueExpression><![CDATA[($P{DATE_TO_APM1}.compareTo( new java.sql.Timestamp(((Date)(new java.text.SimpleDateFormat("ddMMyyyy").parse("01011900"))).getTime()))) == 0
+? "Order by permit_req_sub_to_dcac" :
+  "Order by date_to_apm"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="RESOURCE_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     documentref AS docno,
+     date_permit_req_rec_at_acd AS permit_req_rec_at_acd,
+     date_permit_req_sub_to_dcac AS permit_req_sub_to_dcac,
+     date_proc_at_dcac AS proc_at_dcac,
+     date_rec_at_acd AS rec_at_acd,
+     date_request_signed_by_apm AS request_signed_by_apm,
+     date_to_apm AS date_to_apm,
+     num_days_from_acd_to_apm AS days_from_acd_to_apm,
+     date_dcac_signed,
+     date_signed_by_dod,
+     date_copy_sent_to_dcac,
+     num_days_from_dcac_to_dod,
+     num_days_from_dod_to_dcac,
+     total_workingdays_to_process AS total_workingdays_to_process,
+     num_days_from_dcac_to_acd AS days_from_dcac_to_acd,
+     num_days_dcac_to_process AS days_dcac_to_process,
+     num_days_from_acd_to_dcac AS days_from_acd_to_dcac,
+     num_days_from_apm_to_acd AS days_from_apm_to_acd,
+     (SELECT name FROM ad_ref_list WHERE ad_reference_id=1000005 AND value=status) AS status,
+     (SELECT name FROM ad_ref_list WHERE ad_reference_id=1000004 AND value=request_urgency) AS request,
+     ( SELECT name FROM "ad_ref_list" WHERE ad_reference_id = 1000039 AND value = client ) AS client
+FROM adempiere.zz_euc euc
+WHERE
+     (euc."status" = $P{STATUS} OR $P{STATUS} = '') and
+     (($P{DATE_TO_DCAC1} = to_date('01011900','ddmmyyyy') OR (euc.date_permit_req_sub_to_dcac >= $P{DATE_TO_DCAC1})) and
+       ($P{DATE_TO_DCAC2} = to_date('01011900','ddmmyyyy') OR euc.date_permit_req_sub_to_dcac <= $P{DATE_TO_DCAC2})) and
+     (($P{DATE_TO_APM1} = to_date('01011900','ddmmyyyy') OR euc.date_to_apm >= $P{DATE_TO_APM1}) and        ($P{DATE_TO_APM2} = to_date('01011900','ddmmyyyy') OR euc.date_to_apm <= $P{DATE_TO_APM2}))
+ $P!{sortby}]]>
+	</queryString>
+	<field name="docno" class="java.lang.String"/>
+	<field name="permit_req_rec_at_acd" class="java.sql.Timestamp"/>
+	<field name="permit_req_sub_to_dcac" class="java.sql.Timestamp"/>
+	<field name="proc_at_dcac" class="java.sql.Timestamp"/>
+	<field name="rec_at_acd" class="java.sql.Timestamp"/>
+	<field name="request_signed_by_apm" class="java.sql.Timestamp"/>
+	<field name="date_to_apm" class="java.sql.Timestamp"/>
+	<field name="days_from_acd_to_apm" class="java.lang.String"/>
+	<field name="date_dcac_signed" class="java.sql.Timestamp"/>
+	<field name="date_signed_by_dod" class="java.sql.Timestamp"/>
+	<field name="date_copy_sent_to_dcac" class="java.sql.Timestamp"/>
+	<field name="num_days_from_dcac_to_dod" class="java.lang.String"/>
+	<field name="num_days_from_dod_to_dcac" class="java.lang.String"/>
+	<field name="total_workingdays_to_process" class="java.lang.String"/>
+	<field name="days_from_dcac_to_acd" class="java.lang.String"/>
+	<field name="days_dcac_to_process" class="java.lang.String"/>
+	<field name="days_from_acd_to_dcac" class="java.lang.String"/>
+	<field name="days_from_apm_to_acd" class="java.lang.String"/>
+	<field name="status" class="java.lang.String"/>
+	<field name="request" class="java.lang.String"/>
+	<field name="client" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="50" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="74" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-15" x="0" y="30" width="41" height="10" uuid="ef7b0584-f1a5-4f89-80ba-6d069da859f8"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-17" x="41" y="30" width="45" height="10" uuid="5370cf49-7d41-4476-b63b-6819b600d69e"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($P{STATUS} == "")?"All":$P{STATUS}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-16" x="347" y="0" width="40" height="20" uuid="7ceeec7e-e04a-468e-9663-f2d9e98a1c85"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[EUC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-16" x="387" y="0" width="40" height="20" uuid="0c30d055-3804-4248-8ecb-531fe16c5699"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[LIST]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-15" x="0" y="40" width="41" height="10" uuid="8632ba1c-801b-4ce7-8e0c-1cc7cf6a14ec"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sub to DCAC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-15" x="0" y="50" width="41" height="10" uuid="ce3f00f3-9215-48d1-b863-85453e1795cb"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date To APM]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement key="textField-17" x="41" y="40" width="45" height="10" uuid="f0dcbc06-ae4f-4135-8aab-884e5e248f70"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(($P{DATE_TO_DCAC1}.compareTo( new java.sql.Timestamp(((Date)(new java.text.SimpleDateFormat("ddMMyyyy").parse("01011900"))).getTime()))) == 0)
+?  null :  $P{DATE_TO_DCAC1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement key="textField-17" x="41" y="50" width="45" height="10" uuid="1fcebd78-9e48-417e-9b1f-8ea23196ce05"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(($P{DATE_TO_APM1}.compareTo( new java.sql.Timestamp(((Date)(new java.text.SimpleDateFormat("ddMMyyyy").parse("01011900"))).getTime()))) == 0)
+?  null :  $P{DATE_TO_APM1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement key="textField-17" x="86" y="40" width="60" height="10" uuid="96524b1c-2ca9-4fca-bbd9-40477ecccf2e"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(($P{DATE_TO_DCAC2}.compareTo( new java.sql.Timestamp(((Date)(new java.text.SimpleDateFormat("ddMMyyyy").parse("01011900"))).getTime()))) == 0)
+?  null :  $P{DATE_TO_DCAC2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement key="textField-17" x="86" y="50" width="60" height="10" uuid="2cb17fcd-71b1-4202-ba8f-1763a5313070"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(($P{DATE_TO_APM2}.compareTo( new java.sql.Timestamp(((Date)(new java.text.SimpleDateFormat("ddMMyyyy").parse("01011900"))).getTime()))) == 0)
+?  null :  $P{DATE_TO_APM2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="37" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-1" x="227" y="4" width="40" height="33" uuid="9223ad72-e421-4783-a39c-4d4b1ed0c957"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="0">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATE REQUEST RECEIVED AT ACD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-2" x="507" y="4" width="28" height="33" uuid="66a36e67-1f3c-4763-a5ac-9b33a63f781f"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="0">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AMP TO ACD DAYS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-3" x="535" y="4" width="28" height="33" uuid="81a81f4e-033e-4fab-aeea-978f347f74a2"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="0">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ACD TO DCAC DAYS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-4" x="599" y="4" width="28" height="33" uuid="40cfe44b-e163-4942-bef7-0743647aec4a"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="0">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DCAC TO DOD DAYS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-5" x="655" y="4" width="28" height="33" uuid="00591582-74f9-4c83-8180-61be2c39a0be"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="0">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DCAC TO ACD DAYS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-6" x="563" y="4" width="36" height="33" uuid="c9183852-6534-49ea-9ad7-ac6a9d7c674a"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="0">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DCAC PROCESS DAYS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-7" x="627" y="4" width="28" height="33" uuid="9934dccb-0a17-437b-8b85-34f9548e13b9"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="0">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DOD TO DCAC DAYS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-10" x="187" y="4" width="40" height="33" uuid="21aa17a9-e49c-46c0-988e-4e7659aad999"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="0">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATE REQUEST SIGNED BY APM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-11" x="347" y="4" width="40" height="33" uuid="732a73fe-e96e-408c-a443-ed4e16701f9a"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="0">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATE SIGNED BY DOD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-12" x="307" y="4" width="40" height="33" uuid="88977288-fab2-4463-a54d-cc0d345cce7e"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="0">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATE PROCESSED AT DCAC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-14" x="0" y="4" width="41" height="33" uuid="61a4e6e9-fba3-40a8-a12d-7dccb75492f4"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="0">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Application Type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-14" x="41" y="4" width="45" height="33" uuid="993e47ad-b880-4536-8a6c-25fd2c4b3102"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="0">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ACD Ref]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-14" x="86" y="4" width="60" height="33" uuid="3b775240-609d-4701-87d5-80af1a358be3"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="0">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Client Ref]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-13" x="267" y="4" width="40" height="33" uuid="8ee7feee-affa-4795-98cc-f0ff0b59f723"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="0">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATE REQUEST SUBMITTED TO DCAC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-14" x="146" y="4" width="41" height="33" uuid="01065a23-896d-4f3a-8a21-473f7c587fc5"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="0">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[STATUS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-11" x="427" y="4" width="40" height="33" uuid="d79dec09-fc24-4c35-b4b3-58e05b4421ea"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="0">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATE TO APM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-12" x="387" y="4" width="40" height="33" uuid="4f8fe859-d37c-4128-a9b0-8509e606a5e2"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="0">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATE RECEIVED AT ACD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-9" x="467" y="4" width="40" height="33" uuid="500df292-44aa-4299-9050-c37604136b17"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="0">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATE COPY SENT TO DCAC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-7" x="683" y="4" width="28" height="33" uuid="73a68439-e195-434b-954f-fb867126833d"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="0">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ACD TO APM DAYS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-5" x="711" y="4" width="38" height="33" uuid="e8023c87-56a9-4942-aaed-f608219951c2"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="0">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL PROCESS WORK DAYS]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-3" x="627" y="0" width="28" height="12" uuid="1da7512f-42f4-45f2-b7a4-c03f9c38c00d"/>
+				<box topPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{num_days_from_dod_to_dcac} == null ? new Integer(0) : Integer.parseInt($F{num_days_from_dod_to_dcac})]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-4" x="507" y="0" width="28" height="12" uuid="89c81572-0d37-47a8-8f38-455f520141e5"/>
+				<box topPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{days_from_apm_to_acd} == null ? new Integer(0) : new Integer(Integer.parseInt($F{days_from_apm_to_acd}))]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-5" x="535" y="0" width="28" height="12" uuid="ab508b5e-efc1-45ae-8eef-4f3afdebb8a0"/>
+				<box topPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{days_from_acd_to_dcac} == null ? new Integer(0) : new Integer(Integer.parseInt($F{days_from_acd_to_dcac}))]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-6" x="563" y="0" width="36" height="12" uuid="d4d7d155-bfa9-4b14-bb6b-309fea7ce176"/>
+				<box topPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{days_dcac_to_process} == null ? new Integer(0) : Integer.parseInt($F{days_dcac_to_process})]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-7" x="655" y="0" width="28" height="12" uuid="74f5e29a-4ccd-48f6-91bc-34ddeb34dad8"/>
+				<box topPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{days_from_dcac_to_acd} == null ? new Integer(0) : Integer.parseInt($F{days_from_dcac_to_acd})]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-13" x="599" y="0" width="28" height="12" uuid="b24ac884-ab59-440d-af1f-2c14777d1fe0"/>
+				<box topPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{num_days_from_dcac_to_dod} == null ? new Integer(0) : Integer.parseInt($F{num_days_from_dcac_to_dod})]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-16" x="146" y="0" width="41" height="12" uuid="bb2671bf-0163-42d7-be47-2fcd7b502af0"/>
+				<box topPadding="2" leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement key="textField-12" x="227" y="0" width="40" height="12" uuid="bf5e167f-6de2-4bcf-b38e-b1a366016119"/>
+				<box topPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{permit_req_rec_at_acd}]]></textFieldExpression>
+			</textField>
+			<textField pattern="d/M/yyyy" isBlankWhenNull="true">
+				<reportElement key="textField-15" x="187" y="0" width="40" height="12" uuid="6fe8180e-c379-42c4-b36c-8b1c67f01d35"/>
+				<box topPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{request_signed_by_apm}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement key="textField-11" x="267" y="0" width="40" height="12" uuid="54166f06-3b38-475f-93a4-87c4b9fe991a"/>
+				<box topPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{permit_req_sub_to_dcac}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement key="textField-10" x="307" y="0" width="40" height="12" uuid="b6fc7081-815c-489f-8185-99461133e18d"/>
+				<box topPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{proc_at_dcac}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement key="textField-8" x="347" y="0" width="40" height="12" uuid="4e69a7a0-5e0b-4ada-8574-6500dda6b67d"/>
+				<box topPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{date_signed_by_dod}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-16" x="0" y="0" width="41" height="12" uuid="f1b92325-110f-43e2-8c5d-e887f27fe7e1"/>
+				<box topPadding="2" leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{request}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement key="textField" x="41" y="0" width="45" height="12" uuid="537dd04c-34fe-446e-8bfa-33c94deee3f9"/>
+				<box topPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{docno}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement key="textField" x="86" y="0" width="60" height="12" uuid="fe51b828-f5b4-470b-adbd-a8702df31083"/>
+				<box topPadding="2" leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{client}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement key="textField-9" x="467" y="0" width="40" height="12" uuid="53fb47ca-6a2c-4f11-b5f8-896ccb8296e0"/>
+				<box topPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{date_copy_sent_to_dcac}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement key="textField-8" x="427" y="0" width="40" height="12" uuid="7e1befe9-feeb-4c7c-bbaf-7143eeec6869"/>
+				<box topPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{date_to_apm}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement key="textField-10" x="387" y="0" width="40" height="12" uuid="8ae20df0-a8f1-463c-86c7-8bcefa655571"/>
+				<box topPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{rec_at_acd}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-7" x="711" y="0" width="38" height="12" uuid="ccb44fe9-b5c1-4701-893a-ab20b1c5d6e3"/>
+				<box topPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total_workingdays_to_process} == null ? new Integer(0) : Integer.parseInt($F{total_workingdays_to_process})]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-3" x="683" y="0" width="28" height="12" uuid="abf7029e-bf77-4576-8724-568941318c98"/>
+				<box topPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{days_from_acd_to_apm} == null ? new Integer(0) : Integer.parseInt($F{days_from_acd_to_apm})]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="12" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="35" splitType="Stretch">
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-18" mode="Transparent" x="307" y="3" width="40" height="12" uuid="b4126b3b-c378-41b4-8d1d-a54c2a5c0245"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" isBlankWhenNull="false">
+				<reportElement key="textField-19" x="427" y="3" width="40" height="12" uuid="d39173c5-7223-4e03-b854-f9aa717ae905"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["" + $V{PAGE_NUMBER} + ""]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" pattern="dd/MM/yyyy HH.mm.ss" isBlankWhenNull="false">
+				<reportElement key="textField-20" x="86" y="3" width="60" height="12" uuid="599307c5-a561-4649-beb0-b4d4099d4571"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-18" mode="Transparent" x="347" y="3" width="40" height="12" uuid="b52071b0-0138-492c-940c-d8c0a0a0b00a"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-18" mode="Transparent" x="387" y="3" width="40" height="12" uuid="92af9486-4f22-4580-ad54-bb9db569d111"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" of "]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="34" splitType="Stretch">
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-18" mode="Transparent" x="307" y="5" width="40" height="12" uuid="f8112419-9567-42bb-aa1b-7270386978c4"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-18" mode="Transparent" x="347" y="5" width="40" height="12" uuid="b2b522db-5aa5-445b-a5d7-c14c3eeb53eb"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-18" mode="Transparent" x="387" y="5" width="40" height="12" uuid="da5d775c-8833-402d-b75d-9c31214af2bb"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" of "]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" isBlankWhenNull="false">
+				<reportElement key="textField-19" x="427" y="5" width="40" height="12" uuid="5e4c6806-f4cf-4298-a985-ec6d435f98df"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["" + $V{PAGE_NUMBER} + ""]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" pattern="dd/MM/yyyy HH.mm.ss" isBlankWhenNull="false">
+				<reportElement key="textField-20" x="86" y="5" width="60" height="12" uuid="d9388ad3-234c-4f11-ad5f-52190ffe3a9f"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band height="50">
+			<elementGroup/>
+			<textField>
+				<reportElement x="0" y="19" width="782" height="20" uuid="e9355f34-efb1-4dbf-b2f4-c1b79f4e193c"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["No of Records : " + $V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ZZ_Application_New_LetterHead" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="68ed06af-2eff-4bbb-924b-49ecb7a6cdd6">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.jrdax"/>
+	<parameter name="ZZ_Application_ID" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARAGRAPH_ONE" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="RESOURCE_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[SELECT a.zz_lettertext, a.subject, lower( ast.name || ' ' ||dt.name) as docname, a.zz_paragraph1, lt.zz_reportfooter, a.zz_emailreference,
+coalesce(a.zz_referenceTelephone, '') as zz_referenceTelephone,
+coalesce(a.zz_referencefax,'') as zz_referencefax,  a.zz_enquiresreference,org.name as orgname, a.zz_apprefno, pj.name as project, usr.description as DocOwner, a.zz_jobTitle
+
+
+from zz_application as a
+
+left join ad_user as usr on usr.ad_user_id = a.zz_DocOwner_ID
+
+left join c_doctype as dt on dt.c_doctype_id = a.c_doctype_id
+left join zz_applicationsubtype as ast on ast.zz_applicationsubtype_id = a.zz_applicationsubtype_id
+left join ad_org as org on a.ad_org_id=org.ad_org_id
+left join c_project pj on pj.c_project_id = a.c_project_id,
+zz_lettertemplates as lt
+where a.zz_lettertemplates_id = lt.zz_lettertemplates_id
+and a.zz_application_id = $P{ZZ_Application_ID}]]>
+	</queryString>
+	<field name="zz_lettertext" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="zz_lettertext"/>
+		<property name="com.jaspersoft.studio.field.label" value="zz_lettertext"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="zz_application"/>
+	</field>
+	<field name="subject" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="subject"/>
+		<property name="com.jaspersoft.studio.field.label" value="subject"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="zz_application"/>
+	</field>
+	<field name="docname" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="docname"/>
+		<property name="com.jaspersoft.studio.field.label" value="docname"/>
+	</field>
+	<field name="zz_paragraph1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="zz_paragraph1"/>
+		<property name="com.jaspersoft.studio.field.label" value="zz_paragraph1"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="zz_application"/>
+	</field>
+	<field name="zz_reportfooter" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="zz_reportfooter"/>
+		<property name="com.jaspersoft.studio.field.label" value="zz_reportfooter"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="zz_lettertemplates"/>
+	</field>
+	<field name="zz_emailreference" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="zz_emailreference"/>
+		<property name="com.jaspersoft.studio.field.label" value="zz_emailreference"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="zz_application"/>
+	</field>
+	<field name="zz_referencetelephone" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="zz_referencetelephone"/>
+		<property name="com.jaspersoft.studio.field.label" value="zz_referencetelephone"/>
+	</field>
+	<field name="zz_referencefax" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="zz_referencefax"/>
+		<property name="com.jaspersoft.studio.field.label" value="zz_referencefax"/>
+	</field>
+	<field name="zz_enquiresreference" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="zz_enquiresreference"/>
+		<property name="com.jaspersoft.studio.field.label" value="zz_enquiresreference"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="zz_application"/>
+	</field>
+	<field name="orgname" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="orgname"/>
+		<property name="com.jaspersoft.studio.field.label" value="orgname"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ad_org"/>
+	</field>
+	<field name="zz_apprefno" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="zz_apprefno"/>
+		<property name="com.jaspersoft.studio.field.label" value="zz_apprefno"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="zz_application"/>
+	</field>
+	<field name="project" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="project"/>
+		<property name="com.jaspersoft.studio.field.label" value="project"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_project"/>
+	</field>
+	<field name="docowner" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="docowner"/>
+		<property name="com.jaspersoft.studio.field.label" value="docowner"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ad_user"/>
+	</field>
+	<field name="zz_jobtitle" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="zz_jobtitle"/>
+		<property name="com.jaspersoft.studio.field.label" value="zz_jobtitle"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="zz_application"/>
+	</field>
+	<background>
+		<band height="802" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<image>
+				<reportElement x="0" y="0" width="555" height="802" uuid="64685c64-7981-4358-bd15-206a247aba3d"/>
+				<imageExpression><![CDATA["/media/sf_RGN/Armscor/Armscor Jasper Reports/src/IZBGbQ.png"]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<title>
+		<band height="318" splitType="Stretch">
+			<staticText>
+				<reportElement x="23" y="126" width="270" height="102" uuid="6e992a2d-8adc-43fd-a3b1-b5d4ffb59b05"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="DejaVu Sans" size="11" isBold="false"/>
+					<paragraph lineSpacing="Single" lineSpacingSize="1.15"/>
+				</textElement>
+				<text><![CDATA[The Director
+Directorate Conventional Arms Control (DCAC)
+Private Bag X910
+PRETORIA
+0001]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="293" y="129" width="66" height="16" uuid="8fe13cc1-13f4-4134-af34-9dc7b0cd3e3d"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="293" y="146" width="66" height="16" uuid="9f72cde5-6f27-4b95-ae4b-4d0adb1a86db"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Telephone]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="293" y="163" width="66" height="17" uuid="332ddbea-567c-4cad-b72b-c3e522f6e920"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Fax]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="293" y="181" width="66" height="16" uuid="1540a58f-d92b-4589-9078-7ef08ed14567"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[E-mail]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="295" y="228" width="66" height="16" uuid="dcefc7e4-7a02-4853-a627-52c4371300f7"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Enquiries]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="371" y="129" width="143" height="16" uuid="16431cdc-eba1-4e4b-903f-131074407a76"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="361" y="228" width="10" height="16" uuid="14f9e0cf-1816-4ba4-a49f-6998549a6f90"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="163" width="10" height="16" uuid="82db9068-655b-4333-9d28-a5c2337c7933"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="146" width="10" height="16" uuid="f9811dbb-b0ba-4ab2-ac75-a91f100b5fba"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="181" width="10" height="16" uuid="5a5157d1-4fef-4882-8453-461a9180f660"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="129" width="10" height="16" uuid="50f9cdbf-8b4d-4b65-b0f8-b48b92d60070"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="371" y="146" width="143" height="16" uuid="e7c6f210-d334-466c-8acd-8c9c4b819df3"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{zz_referencetelephone}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="371" y="163" width="143" height="16" uuid="d692ae62-e457-496b-92f1-20d99d57db78"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{zz_referencefax}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="371" y="181" width="159" height="45" uuid="cd3ed677-14d3-4447-be73-0a043a2de4a3"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="11" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{zz_emailreference}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement x="373" y="228" width="141" height="47" uuid="3d315c44-adb1-432c-ba3f-4507225d91df"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{zz_enquiresreference}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement x="23" y="228" width="176" height="15" uuid="09280b0d-6643-4e32-af9c-8d5ac3f00c97"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Our Ref:  " +$F{zz_apprefno}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="23" y="256" width="113" height="15" uuid="e1140916-e9d7-4863-bfa0-dd6bcbc1b708"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Dear Sir/Madam]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement x="23" y="284" width="477" height="17" isPrintWhenDetailOverflows="true" uuid="224962ef-9d83-4f8f-aafa-86a83e5d275e"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="11" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{subject}.toUpperCase()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="38" splitType="Stretch">
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement x="23" y="0" width="477" height="17" isPrintWhenDetailOverflows="true" uuid="bca65360-7d3f-4e08-a8df-81a72ebb24a4"/>
+				<textElement textAlignment="Justified">
+					<font fontName="DejaVu Sans" size="11" isBold="false" isUnderline="false"/>
+					<paragraph lineSpacing="Fixed" lineSpacingSize="15.0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{zz_paragraph1}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="73">
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement x="23" y="2" width="477" height="22" uuid="97912907-afaf-4c09-a767-b14bc9636ffa"/>
+				<textElement textAlignment="Justified">
+					<font fontName="DejaVu Sans" size="11"/>
+					<paragraph lineSpacing="Fixed" lineSpacingSize="15.0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{zz_lettertext}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</summary>
+</jasperReport>
